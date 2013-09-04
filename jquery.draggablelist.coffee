@@ -22,7 +22,6 @@ draggableList =
         "fontSize": 0
         "lineHeight": 0
         "overflow": "hidden"
-        "position": "absolute"
     @$ghost = $("<div />")
       .html(@$dragging.html())
       .appendTo($("body"))
@@ -54,6 +53,7 @@ draggableList =
       .on("mouseup.draggableList", d, d.drop)
       .on("mousemove.draggableList", d, d.move)
     $(document.body).disableSelection()
+    false
   drop: (e) ->
     d = e.data
     if !d.$zone or d.$zone.index() is d.$dragging.index()
