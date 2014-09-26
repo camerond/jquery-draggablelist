@@ -140,15 +140,16 @@ draggableList =
     @afterDrop.apply(@$el)
     false
   init: ->
-    if @$el.find(@handle).length
+    $children = @$el.children()
+    if @$el.find(@handle).length && $children.length > 1
       @$el.on("mousedown.draggableList", @handle, @, @startDrag)
-      $children = @$el.children()
-      @item_padding = ($children.eq(1).offset().top - $children.eq(0).offset().top - $children.eq(0).outerHeight()) / 2
+      @item_padding = +$children.eq(0).css("margin-bottom").replace("px", "") / 2 + 1
     for t, idx of @relative_triggers
       @bindRelativeTrigger(t, idx)
     for t, idx of @absolute_triggers
       @bindAbsoluteTrigger(t, idx)
     @bindInputTrigger()
+
 $.fn[draggableList.name] = (opts) ->
     $els = @
     method = if $.isPlainObject opts or !opts then "" else opts
